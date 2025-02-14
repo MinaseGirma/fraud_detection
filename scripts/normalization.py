@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import joblib
+import os
 from sklearn.preprocessing import LabelEncoder, StandardScaler, MinMaxScaler, OneHotEncoder
 
 
@@ -39,11 +40,12 @@ def encoder(method, dataframe, columns_featured,name):
         
         return df_lbl 
 
-def scaler(method, data, columns_scaler,name):    
+def scaler(method, data, columns_scaler, name):    
     if method == 'standardScaler':        
         Standard = StandardScaler()
         df_standard = data.copy()
         df_standard[columns_scaler] = Standard.fit_transform(df_standard[columns_scaler])  
+        os.makedirs('../models', exist_ok=True)
 
         joblib.dump(Standard, f'../models/standard_scaler_{name}.pkl')
 
